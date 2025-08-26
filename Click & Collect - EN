@@ -1,0 +1,117 @@
+<style type="text/css">.text-wrap.bannerTemplate.text-alignment.my-4 {
+margin: 0 !important;
+}
+</style>
+
+<!-- Click & Collect Info + CTA Buttons Widget (English, no JS) -->
+<div id="pickup-widget" class="container">
+  <style>
+    /* ===== Container reset (scoped) ===== */
+    #pickup-widget.container { padding: 0 !important; margin: 0 !important; }
+
+    /* ===== Text styles ===== */
+    #pickup-widget h2 {
+      font-size: 18px !important;
+      color: #111111 !important;
+      margin-bottom: 1rem;
+    }
+    #pickup-widget p {
+      font-size: 14px !important;
+      color: #484848 !important;
+      margin-bottom: 1rem;
+    }
+    #pickup-widget p:last-child { margin-bottom: 0; }
+    #pickup-widget em { font-size: 13px; color: #484848; display: block; }
+
+    /* ===== CTA row ===== */
+    #pickup-widget .cta-row {
+      display: flex;
+      flex-direction: column;      /* mobile-first: stacked */
+      align-items: flex-start;     /* left align */
+      margin-top: 1rem;
+    }
+
+    /* Buttons */
+    #pickup-widget .cta-btn {
+      display: inline-block;
+      border-radius: 9999px;       /* pill */
+      padding: 0.9rem 1.25rem;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      line-height: 1.2;
+      white-space: normal;
+      transition: box-shadow .15s ease, transform .05s ease, background-color .15s ease, color .15s ease, border-color .15s ease;
+    }
+    #pickup-widget .cta-btn:active { transform: translateY(1px); }
+
+    /* Primary (filled dark) */
+    #pickup-widget .cta-btn--primary {
+      background-color: #111111;
+      color: #ffffff;
+      border: 1px solid #111111;
+    }
+    #pickup-widget .cta-btn--primary:hover,
+    #pickup-widget .cta-btn--primary:focus {
+      background-color: #000000;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    /* Outline dark */
+    #pickup-widget .cta-btn--outline {
+      background-color: #ffffff;
+      color: #111111;
+      border: 2px solid #111111;
+    }
+    #pickup-widget .cta-btn--outline:hover,
+    #pickup-widget .cta-btn--outline:focus {
+      background-color: #f7f7f7;
+      color: #111111;
+      text-decoration: none;
+    }
+
+    /* Spacing when stacked (mobile) */
+    #pickup-widget .cta-btn + .cta-btn { margin-top: 0.75rem; }
+
+    /* Desktop layout (≥992px): side-by-side with gap */
+    @media (min-width: 992px) {
+      #pickup-widget .cta-row { flex-direction: row; }
+      #pickup-widget .cta-btn + .cta-btn { margin-top: 0; margin-left: 0.75rem; }
+    }
+  </style>
+
+  <!-- Text Block -->
+  <div>
+    <h2>Pick up your order for FREE!</h2>
+    <p>
+      Shop online at IKEA and collect your order at the nearest Pick-up Point, no delivery fee!
+    </p>
+    <p>
+      Enjoy a more practical and budget-friendly shopping experience with our <strong>Click &amp; Collect</strong> service.
+      Pick up your items from any <strong>IKEA Pick-up Point</strong> or store without paying for delivery.
+    </p>
+    <p>
+      Choose your Click &amp; Collect location at checkout and enjoy a flexible way to bring IKEA home.
+    </p>
+    <p>
+      <em>*Available for all IKEA products, with no minimum purchase required.</em><br>
+      <em>*Maximum product size for Pick-up Point HERO Permata Hijau is 150 × 100 × 80 cm.</em>
+    </p>
+  </div>
+
+  <!-- CTA Buttons -->
+  <div class="cta-row">
+    <a href="#indomaret-pickup"
+       class="cta-btn cta-btn--primary"
+       aria-label="Check the Indomaret Pick-up Point near you">
+      Check the Indomaret Pick-up Point near you
+    </a>
+
+    <a href="#more-inspirations"
+       class="cta-btn cta-btn--outline"
+       aria-label="See more inspirations here">
+      See more inspirations here
+    </a>
+  </div>
+</div>
