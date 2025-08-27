@@ -1,0 +1,111 @@
+<style type="text/css">/* Main container styles */
+        .card-single-container-dvp {
+            display: flex;
+            background-color: #BCDEEF; /* Light grey background for the whole widget */
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden; /* Ensures no content spills out */
+            font-family: inherit; /* Uses the website's native font */
+        }
+
+        /* Column styles */
+        .card-single-image-column-dvp,
+        .card-single-content-column-dvp {
+            width: 50%;
+            box-sizing: border-box; /* Ensures padding is included in the width */
+        }
+
+        /* Content column specific styles */
+        .card-single-content-column-dvp {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem; /* Generous padding for spacing */
+        }
+
+        /* Image styles */
+        .card-single-image-dvp {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the column without distortion */
+            display: block; /* Removes any extra space below the image */
+        }
+
+        /* Heading styles */
+        .card-single-heading-dvp {
+            font-size: 2.5rem; /* Large, impactful heading */
+            font-weight: bold;
+            color: #212529; /* Dark grey for text */
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Paragraph styles */
+        .card-single-text-dvp {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #495057; /* Slightly lighter grey for body text */
+            margin-top: 0;
+            margin-bottom: 2rem;
+            max-width: 500px; /* Limits text width for better readability */
+        }
+
+        /* Button styles */
+        .card-single-button-dvp {
+            display: inline-block;
+            background-color: #212529; /* Black background */
+            color: #ffffff; /* White text */
+            margin-bottom: 10px;
+            padding: 0.8rem 2rem;
+            border-radius: 50px; /* Fully rounded corners for a pill shape */
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            align-self: flex-start; /* Aligns button to the left */
+        }
+
+        .card-single-button-dvp:hover {
+            background-color: #ffffff; /* Darker grey on hover */
+            color: #000000;
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        /* Responsive styles for mobile devices */
+        @media (max-width: 768px) {
+            .card-single-container-dvp {
+                flex-direction: column; /* Stacks columns vertically on mobile */
+            }
+
+            .card-single-image-column-dvp,
+            .card-single-content-column-dvp {
+                width: 100%; /* Each column takes full width on mobile */
+            }
+
+            .card-single-content-column-dvp {
+                padding: 2rem; /* Reduces padding on smaller screens */
+            }
+
+            .card-single-heading-dvp {
+                font-size: 2rem; /* Slightly smaller heading on mobile */
+            }
+
+            .card-single-text-dvp {
+                font-size: 0.9rem;
+            }
+        }
+</style>
+<div class="card-single-container-dvp"><!-- Left Column: Image -->
+<div class="card-single-image-column-dvp"><img alt="Person designing on a laptop" class="card-single-image-dvp" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/495057?text=Image';" src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1730774449601__5.webp" /></div>
+<!-- Right Column: Content -->
+
+<div class="card-single-content-column-dvp">
+<h2 class="card-single-heading-dvp">Create your dream interior with IKEA&rsquo;s Interior Design Service</h2>
+
+<p class="card-single-text-dvp">Discover your style through expert consultation and find the perfect colors, lighting, storage, and furniture for your space.<br />
+<br />
+With a long history in furniture, IKEA offers products and solutions with both style and functionality. Take the opportunity to take advantage of IKEA&rsquo;s rich knowledge.</p>
+
+<div><a class="card-single-button-dvp" href="https://wa.me/6281113002242">Chat with us</a>&nbsp;<a class="card-single-button-dvp" href="https://www.ikea.co.id/en/projects/free-layout-design">Free room design layout</a></div>
+</div>
+</div>
