@@ -1,0 +1,161 @@
+<script>
+(function(){
+  /* ===== Config ===== */
+  var DVPPX_BREAK_DESKTOP = 992;   // desktop breakpoint
+  var DVPROW_GAP = 32;             // spacing between rows on desktop
+  var DVPSLIDE_GAP = 16;           // space between slides on mobile
+  var DVPSLIDE_SIDE = 20;          // side padding so next slide peeks
+
+  var dvpDataISTAD = [
+    { title_en:"Lock in the freshness", title_in:"Kesegaran terkunci rapat",
+      text_en:"With a leak-proof double zipper, this reusable bag is perfect for keeping food fresh in the fridge or freezer and can be safely hand-washed.",
+      text_in:"Dengan ritsleting ganda anti bocor, kantong yang dapat digunakan kembali ini sangat cocok untuk menjaga makanan tetap segar di kulkas atau freezer dan dapat dicuci dengan tangan.",
+      banner_en:"https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1756783886198__4.webp",
+      banner_in:"https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1756783886198__4.webp" },
+    { title_en:"Various uses", title_in:"Berbagai kegunaan",
+      text_en:"It's also great for organizing small items like puzzles or games, and its transparent design lets you easily see what's inside.",
+      text_in:"Kantong ini juga bagus untuk menata barang-barang kecil seperti puzzle atau permainan, dan desainnya yang transparan memudahkan Anda untuk melihat isinya.",
+      banner_en:"https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1756783886306__5.webp",
+      banner_in:"https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1756783886306__5.webp" },
+    { title_en:"Also recommended for traveling!", title_in:"Praktis untuk dibawa bepergian",
+      text_en:"For travel, you can use it to securely pack toiletries, compress clothing to save space, or conveniently store shoes and slippers.",
+      text_in:"Saat bepergian, Anda dapat menggunakannya untuk mengemas peralatan mandi dengan aman, memadatkan pakaian agar hemat tempat, atau menyimpan sepatu dan sandal dengan praktis.",
+      banner_en:"https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1756783886410__6.webp",
+      banner_in:"https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1756783886410__6.webp" }
+  ];
+
+  /* ===== Styles ===== */
+  var css = document.createElement('style');
+  css.id = 'dvp-istad-style';
+  css.textContent = `
+    #dvp-istad{width:100%;}
+    #dvp-istad .dvp-row{display:flex;flex-wrap:wrap;margin-left:-15px;margin-right:-15px;}
+    #dvp-istad .dvp-col{padding-left:15px;padding-right:15px;box-sizing:border-box;width:100%;}
+    @media(min-width:${DVPPX_BREAK_DESKTOP}px){#dvp-istad .dvp-col{width:33.3333%;}}
+    #dvp-istad .dvp-row + .dvp-row{margin-top:${DVPROW_GAP}px;}
+
+    /* TEXT */
+    #dvp-istad .dvp-text-card{display:flex;flex-direction:column;height:100%;color:#000;}
+    #dvp-istad .dvp-title{margin:0 0 .5rem;}
+    #dvp-istad .dvp-copy{margin:0;}
+
+    /* IMAGE: perfect squares (no radius) */
+    #dvp-istad .dvp-media{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#f5f5f5;}
+    #dvp-istad .dvp-media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+
+    /* ===== Mobile slider (horizontal, scroll-snap) ===== */
+    @media(max-width:${DVPPX_BREAK_DESKTOP-1}px){
+      #dvp-istad .dvp-text-card{height:auto !important; margin:0 0 8px !important; padding:0 !important;}
+      #dvp-istad .dvp-title{margin:0 0 6px;}
+      #dvp-istad .dvp-copy{margin:0;}
+
+      #dvp-istad .dvp-mobile{position:relative;}
+      #dvp-istad .dvp-track{
+        display:flex;flex-wrap:nowrap;gap:${DVPSLIDE_GAP}px;
+        overflow-x:auto;overflow-y:hidden;
+        scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+        padding:0 ${DVPSLIDE_SIDE}px;
+      }
+      #dvp-istad .dvp-slide{
+        flex:0 0 calc(100% - ${(DVPSLIDE_SIDE*2)}px);
+        scroll-snap-align:center;
+        display:flex;flex-direction:column;
+      }
+    }
+  `;
+  (document.head||document.documentElement).appendChild(css);
+
+  /* ===== Build container ===== */
+  var anchor = document.currentScript;
+  var wrap = document.createElement('div');
+  wrap.id = 'dvp-istad';
+  wrap.className = 'container px-0';
+  anchor.parentNode.insertBefore(wrap, anchor);
+
+  var isEN = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+  var mode = '';
+
+  /* ===== Desktop render (2 rows) ===== */
+  function dvpRenderDesktop(){
+    wrap.innerHTML = '';
+    var textRow = document.createElement('div'); textRow.className = 'dvp-row dvp-text-row';
+    var imgRow  = document.createElement('div');  imgRow.className  = 'dvp-row dvp-img-row';
+
+    dvpDataISTAD.forEach(function(item){
+      // text col
+      var tCol = document.createElement('div'); tCol.className = 'dvp-col';
+      var tCard = document.createElement('div'); tCard.className = 'dvp-text-card';
+      tCard.innerHTML = '<h4 class="dvp-title">'+(isEN?item.title_en:item.title_in)+'</h4>'
+                      + '<p class="dvp-copy">'+(isEN?item.text_en:item.text_in)+'</p>';
+      tCol.appendChild(tCard); textRow.appendChild(tCol);
+
+      // image col
+      var iCol = document.createElement('div'); iCol.className = 'dvp-col';
+      var media = document.createElement('div'); media.className = 'dvp-media';
+      var img = document.createElement('img'); img.loading='lazy'; img.alt='';
+      img.src = isEN?item.banner_en:item.banner_in;
+      media.appendChild(img); iCol.appendChild(media); imgRow.appendChild(iCol);
+    });
+
+    wrap.appendChild(textRow);
+    wrap.appendChild(imgRow);
+  }
+
+  /* ===== Mobile render (slider) ===== */
+  function dvpRenderMobile(){
+    wrap.innerHTML = '';
+    var slider = document.createElement('div'); slider.className = 'dvp-mobile';
+    var track  = document.createElement('div'); track.className  = 'dvp-track';
+
+    dvpDataISTAD.forEach(function(item){
+      var slide = document.createElement('div'); slide.className = 'dvp-slide';
+
+      var tCard = document.createElement('div'); tCard.className = 'dvp-text-card';
+      tCard.innerHTML = '<h4 class="dvp-title">'+(isEN?item.title_en:item.title_in)+'</h4>'
+                      + '<p class="dvp-copy">'+(isEN?item.text_en:item.text_in)+'</p>';
+
+      var media = document.createElement('div'); media.className = 'dvp-media';
+      var img = document.createElement('img'); img.loading='lazy'; img.alt='';
+      img.src = isEN?item.banner_en:item.banner_in;
+
+      media.appendChild(img);
+      slide.appendChild(tCard);
+      slide.appendChild(media);
+      track.appendChild(slide);
+    });
+
+    slider.appendChild(track);
+    wrap.appendChild(slider);
+
+    // Equalize text heights across slides (mobile)
+    dvpEqualizeMobileText(track);
+    // Re-equalize on font load/resize/scroll (in case widths change)
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function(){ dvpEqualizeMobileText(track); }); }
+    window.addEventListener('resize', function(){ if (mode==='mobile') dvpEqualizeMobileText(track); });
+    track.addEventListener('scroll', function(){ /* keep it light; no work on every frame */ }, {passive:true});
+  }
+
+  /* ===== Helpers ===== */
+  function dvpEqualizeMobileText(track){
+    if (!track || window.innerWidth >= DVPPX_BREAK_DESKTOP) return;
+    var cards = track.querySelectorAll('.dvp-text-card');
+    var maxH = 0;
+    // reset to measure natural heights
+    cards.forEach(function(c){ c.style.minHeight = '0px'; });
+    cards.forEach(function(c){ maxH = Math.max(maxH, c.offsetHeight); });
+    cards.forEach(function(c){ c.style.minHeight = maxH + 'px'; });
+  }
+
+  function dvpRender(){
+    if (window.innerWidth < DVPPX_BREAK_DESKTOP){
+      if (mode !== 'mobile'){ dvpRenderMobile(); mode = 'mobile'; }
+      else { dvpEqualizeMobileText(wrap.querySelector('.dvp-track')); }
+    } else {
+      if (mode !== 'desktop'){ dvpRenderDesktop(); mode = 'desktop'; }
+    }
+  }
+
+  window.addEventListener('load', dvpRender);
+  window.addEventListener('resize', dvpRender);
+})();
+</script>
