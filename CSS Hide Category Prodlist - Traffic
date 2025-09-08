@@ -1,0 +1,26 @@
+<style type="text/css">.nav.nav.nav-pills.flex-column.flex-sm-row.mt-4 {
+    display: none !important;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: .25rem;
+}
+
+.btn-wrap {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.productList .addToCart {
+    padding: 0 5px;
+}
+</style>
