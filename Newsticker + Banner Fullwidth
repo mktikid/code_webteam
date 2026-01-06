@@ -1,0 +1,682 @@
+<!-- ===========================
+     HOMEPAGE: NEWS TICKER + FULL-WIDTH MAIN BANNER (ONE BLOCK)
+     - ticker ABOVE banner (not overlay)
+     - full-bleed 100vw (Windows-safe)
+     - banner: swipe + arrows + dots + autoplay
+     - images: WebP only, responsive via <picture media>
+=========================== -->
+<div id="ikea-hp-combo">
+<style type="text/css">/* Prevent Windows 100vw overflow */
+    body #contentWrapper {
+      overflow-x: hidden;
+    }
+
+    hr.divider {
+      display: none;
+    }
+
+.breadcrumbContainer.container.mb-5 {display: none !important;}
+
+    /* ===== TICKER ===== */
+    #ikea-news-ticker {
+      position: relative;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: #0b4aa6;
+      color: #fff;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    #ikea-news-ticker .int-link {
+      display: flex;
+      justify-content: center;
+      padding: 10px 16px;
+      color: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #ikea-news-ticker .int-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    #ikea-news-ticker .int-headline {
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: opacity 200ms ease;
+    }
+
+    #ikea-news-ticker.int-fade .int-headline {
+      opacity: 0;
+    }
+
+    #ikea-news-ticker .int-icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #ikea-news-ticker .int-icon svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    #ikea-news-ticker .int-arrow {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #ikea-news-ticker .int-arrow svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      #ikea-news-ticker .int-link {
+        padding: 10px 24px;
+      }
+    }
+
+    /* ===== BANNER FULL-BLEED ===== */
+    #custom-main-banner-wrapper {
+      position: relative;
+      width: 100vw !important;
+      max-width: 100vw;
+      margin: 0;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .cmb-root {
+      position: relative;
+      width: 100vw !important;
+      max-width: 100vw;
+      overflow: hidden;
+    }
+
+    .cmb-slides {
+      display: flex;
+      flex-wrap: nowrap;
+      width: 100%;
+      transition: transform 0.5s ease-in-out;
+      will-change: transform;
+    }
+
+    .cmb-slide {
+      min-width: 100%;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    .cmb-slide img.cmb-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ===== ARROWS ===== */
+    .cmb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: #111;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .cmb-arrow svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+    .cmb-arrow.cmp-prev {
+      left: 24px;
+    }
+    .cmb-arrow.cmp-next {
+      right: 24px;
+    }
+
+    @media (hover: hover) {
+      .cmb-arrow:hover {
+        background: #000;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .cmb-arrow {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    /* ===== DOTS ===== */
+    .cmb-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .cmb-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: #f0f0f0;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .cmb-dot.is-active {
+      background: #111;
+    }
+
+    @media (max-width: 767.98px) {
+      .cmb-dots {
+        bottom: 16px;
+      }
+    }
+</style>
+<!-- Ticker -->
+<div id="ikea-news-ticker"><a aria-label="News ticker link" class="int-link" href="#"><span class="int-inner"><span aria-hidden="true" class="int-icon"><svg fill="none" height="18" viewbox="0 0 18 18" width="18" xmlns="http://www.w3.org/2000/svg"> <path clip-rule="evenodd" d="M9 2.75C5.54822 2.75 2.75 5.54822 2.75 9C2.75 12.4518 5.54822 15.25 9 15.25C12.4518 15.25 15.25 12.4518 15.25 9C15.25 5.54822 12.4518 2.75 9 2.75ZM1.25 9C1.25 4.71979 4.71979 1.25 9 1.25C13.2802 1.25 16.75 4.71979 16.75 9C16.75 13.2802 13.2802 16.75 9 16.75C4.71979 16.75 1.25 13.2802 1.25 9Z" fill="#FFFFFF" fill-rule="evenodd"></path> <path clip-rule="evenodd" d="M8.25 12.5V8H9.75V12.5H8.25Z" fill="#FFFFFF" fill-rule="evenodd"></path> <path d="M9.75 6.25C9.75 6.66421 9.41421 7 9 7C8.58579 7 8.25 6.66421 8.25 6.25C8.25 5.83579 8.58579 5.5 9 5.5C9.41421 5.5 9.75 5.83579 9.75 6.25Z" fill="#FFFFFF"></path> </svg> </span> <span class="int-headline">Loading&hellip;</span> <span aria-hidden="true" class="int-arrow"> <svg fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M10 6L16 12L10 18" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </svg> </span> </span> </a></div>
+<!-- Banner -->
+
+<div id="custom-main-banner-wrapper">
+<div class="cmb-root">
+<div class="cmb-slides"></div>
+<button aria-label="Previous slide" class="cmb-arrow cmp-prev" type="button"><svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"> <path clip-rule="evenodd" d="M7 12.0009L15.0012 4.00016L16.4154 5.41442L9.82838 12.001L16.4143 18.5878L15 20.002L7 12.0009Z" fill="white" fill-rule="evenodd"></path> </svg></button><button aria-label="Next slide" class="cmb-arrow cmp-next" type="button"><svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"> <path clip-rule="evenodd" d="M16.415 12.0011L8.41383 20.0018L6.99966 18.5875L13.5867 12.0009L7.00073 5.41412L8.41504 4L16.415 12.0011Z" fill="white" fill-rule="evenodd"></path> </svg></button>
+
+<div class="cmb-dots"></div>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    /* ===== NEWS DATAFEED ===== */
+    const newsticker_data = [
+      {
+        headline_en: "Delivery Update – North Sumatra",
+        headline_in: "Pembaruan Pengiriman – Sumatra Utara",
+        news_en:
+          "Due to recent natural disasters in North Sumatra, deliveries to this area may experience delays. Thank you for your understanding.",
+        news_in:
+          "Karena bencana alam yang terjadi di Sumatra Utara, pengiriman ke area tersebut mungkin mengalami keterlambatan. Terima kasih atas pengertiannya.",
+        url_en:
+          "https://www.ikea.co.id/en/customerservice/about-service/delivery",
+        url_in:
+          "https://www.ikea.co.id/in/layanan-pelanggan/tentang-layanan/pengantaran",
+      },
+      {
+        headline_en: "Safe account, safe shopping!",
+        headline_in: "Akun aman, belanja nyaman!",
+        news_en:
+          "Keep your IKEA account secure by changing your password regularly.",
+        news_in:
+          "Jaga keamanan akun IKEA Anda dengan melakukan perubahan password secara berkala.",
+        url_en: "https://www.ikea.co.id/en/account-safety",
+        url_in: "https://www.ikea.co.id/in/keamanan-akun",
+      },
+      {
+        headline_en: "IKEA’s only official number!",
+        headline_in: "Nomor resmi IKEA cuma ini!",
+        news_en:
+          "Make sure you only interact with IKEA Indonesia at 021-29853900.",
+        news_in:
+          "Pastikan Anda hanya berinteraksi dengan IKEA Indonesia di nomor 021-29853900.",
+        url_en: "https://www.ikea.co.id/en/shopping-in-a-safe-way",
+        url_in: "https://www.ikea.co.id/in/cara-aman-belanja",
+      },
+      {
+        headline_en: "Trust only the official source",
+        headline_in: "Pastikan dari sumber resmi",
+        news_en: "Make sure you get job vacancies from official IKEA website.",
+        news_in: "Pastikan info lowongan kerja berasal dari web resmi IKEA.",
+        url_en:
+          "https://www.ikea.co.id/en/about/working-at-ikea-indonesia/available-jobs",
+        url_in:
+          "https://www.ikea.co.id/in/tentang/bekerja-di-ikea-indonesia/lowongan-kerja",
+      },
+      {
+        headline_en: "Your privacy, our priority",
+        headline_in: "Privasi Anda, prioritas kami",
+        news_en:
+          "By opening this information, I agree to the updated IKEA Indonesia Privacy Policy.",
+        news_in:
+          "Dengan membuka informasi ini, Anda menyetujui Kebijakan Privasi IKEA Indonesia yang diperbarui.",
+        url_en:
+          "https://www.ikea.co.id/en/customerservice/about-shopping/terms-and-conditions/privacy-policy",
+        url_in:
+          "https://www.ikea.co.id/in/layanan-pelanggan/about-shopping/syarat-dan-ketentuan/kebijakan-privasi",
+      },
+      {
+        headline_en: "Protect your account from risks",
+        headline_in: "Lindungi akun dari risiko",
+        news_en:
+          "Always protect your data when shopping online. Read and use the security guide to protect your account.",
+        news_in:
+          "Selalu lindungi data Anda pada saat berbelanja online. Baca dan gunakan panduan keamanan untuk melindungi akun Anda.",
+        url_en: "https://www.ikea.co.id/en/account-safety",
+        url_in: "https://www.ikea.co.id/in/keamanan-akun",
+      },
+      {
+        headline_en: "Beware of fake promotions!",
+        headline_in: "Hati-hati promo palsu!",
+        news_en:
+          "Always ensure that the valid IKEA Indonesia promotional ads originate from IKEA Indonesia website.",
+        news_in:
+          "Selalu pastikan iklan promosi IKEA Indonesia yang valid, berasal dari website IKEA Indonesia.",
+        url_en: "https://www.ikea.co.id/en/offers#in_store_promo",
+        url_in: "https://www.ikea.co.id/in/penawaran#in_store_promo",
+      },
+      {
+        headline_en: "Original only from official stores",
+        headline_in: "Produk ori cuma di kanal resmi",
+        news_en:
+          "To safeguard our products quality, please make purchases via official IKEA channels.",
+        news_in:
+          "Untuk menjaga kualitas produk IKEA, mohon lakukan pembelian via kanal resmi IKEA.",
+        url_en: "https://www.ikea.co.id/en/shopping-in-a-safe-way",
+        url_in: "https://www.ikea.co.id/in/cara-aman-belanja",
+      },
+      {
+        headline_en: "IKEA return policy update",
+        headline_in: "Kebijakan pengambalian IKEA",
+        news_en:
+          "90-day return policy provision for promotional product purchases.",
+        news_in:
+          "Ketentuan kebijakan pengembalian 90 hari untuk pembelian produk promosi.",
+        url_en:
+          "https://www.ikea.co.id/en/customerservice/tentang-belanja/return-policy",
+        url_in:
+          "https://www.ikea.co.id/in/layanan-pelanggan/tentang-belanja/kebijakan-pengembalian",
+      },
+    ];
+
+    /* ===== BANNER DATAFEED (your canonical one) ===== */
+    var banners = [
+      {
+        banner_name: "Rabu Seru",
+        banner_en:
+          "https://www.uatserver.id.ikeasi.com/dairyfarm/id/pageImages/page__en_us_1766397037535__0.webp",
+        banner_in:
+          "https://www.uatserver.id.ikeasi.com/dairyfarm/id/pageImages/page__en_us_1766397037535__0.webp",
+        banner_en_m:
+          "https://www.uatserver.id.ikeasi.com/dairyfarm/id/pageImages/page__en_us_1766396780223__0.webp",
+        banner_in_m:
+          "https://www.uatserver.id.ikeasi.com/dairyfarm/id/pageImages/page__en_us_1766396780223__0.webp",
+        url_en: "https://www.ikea.co.id/en/offers/wednesday-offer",
+        url_in: "https://www.ikea.co.id/in/penawaran/rabu-seru",
+        publish_date: "2025-12-31T00:00:00",
+        end_date: "2025-12-31T23:59:59",
+      },
+      {
+        banner_name: "CUAN",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002923089__0.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002923851__1.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002856752__2.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002857231__3.webp",
+        url_en: "https://www.ikea.co.id/en/offers/best-sellers",
+        url_in: "https://www.ikea.co.id/in/penawaran/produk-terlaris",
+        publish_date: "2025-12-29T00:00:00",
+        end_date: "2026-01-01T23:59:59",
+      },
+      {
+        banner_name: "Payday",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002409068__2.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002409459__3.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002408543__0.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767002408850__1.webp",
+        url_en: "https://www.ikea.co.id/en/offers/online-bank-promo",
+        url_in: "https://www.ikea.co.id/in/penawaran/online-bank-promo",
+        publish_date: "2025-12-25T00:00:00",
+        end_date: "2026-01-02T23:59:59",
+      },
+      {
+        banner_name: "SALE AKHIR TAHUN",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1766983900621__1.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1766983900621__1.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1766983904254__6.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1766983904254__6.webp",
+        url_en: "https://www.ikea.co.id/en/offers/end-of-year-sale",
+        url_in: "https://www.ikea.co.id/in/penawaran/sale-akhir-tahun",
+        publish_date: "2025-11-27T00:00:00",
+        end_date: "2026-01-04T23:59:59",
+      },
+      {
+        banner_name: "Bank UOB 5-20 Jan 2026",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767585559526__0.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767585560042__1.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767585560554__2.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767585560827__3.webp",
+        url_en: "https://www.ikea.co.id/en/offers/online-bank-promo",
+        url_in: "https://www.ikea.co.id/in/penawaran/online-bank-promo",
+        publish_date: "2026-01-05T00:00:00",
+        end_date: "2026-01-20T23:59:59",
+      },
+      {
+        banner_name: "Promo Murah",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583919269__6.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583921652__10.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583924174__14.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583925546__18.webp",
+        url_en: "https://www.ikea.co.id/en/offers/promo-murah",
+        url_in: "https://www.ikea.co.id/in/penawaran/promo-murah",
+        publish_date: "2025-11-27T00:00:00",
+        end_date: "2025-12-31T23:59:59",
+      },
+      {
+        banner_name: "IFAM Promotion",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583919829__7.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583922284__11.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583924463__15.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583925885__19.webp",
+        url_en: "https://www.ikea.co.id/en/offers/ikea-family-promotion",
+        url_in: "https://www.ikea.co.id/in/penawaran/promo-ikea-family",
+        publish_date: "2025-11-27T00:00:00",
+        end_date: "2025-12-31T23:59:59",
+      },
+      {
+        banner_name: "PAP Teaser",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583920446__8.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583922980__12.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583924788__16.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583926248__20.webp",
+        url_en: "https://www.ikea.co.id/en/offers/weekend-promo",
+        url_in: "https://www.ikea.co.id/in/penawaran/weekend-promo",
+        publish_date: "2026-01-07T00:00:00",
+        end_date: "2026-01-09T23:59:59",
+      },
+      {
+        banner_name: "IFAM",
+        banner_en:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583920945__9.webp",
+        banner_in:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583923491__13.webp",
+        banner_en_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583925177__17.webp",
+        banner_in_m:
+          "https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1767583926482__21.webp",
+        url_en: "https://www.ikea.co.id/en/ikea-family",
+        url_in: "https://www.ikea.co.id/in/ikea-family",
+        publish_date: "2025-11-27T00:00:00",
+        end_date: "2026-12-31T23:59:59",
+      },
+    ];
+
+    function moveComboToContentWrapperTop() {
+      var $combo = $("#ikea-hp-combo");
+      var $cw = $("#contentWrapper");
+      if ($combo.length && $cw.length) {
+        $cw.prepend($combo);
+      }
+    }
+
+    /* ===== NEWS TICKER ===== */
+    function initNewsTicker() {
+      var $ticker = $("#ikea-news-ticker");
+      if (!$ticker.length) return;
+
+      var isEn = document.documentElement.lang === "en";
+      var $link = $ticker.find(".int-link");
+      var $headline = $ticker.find(".int-headline");
+
+      if (!newsticker_data || !newsticker_data.length) {
+        $ticker.hide();
+        return;
+      }
+
+      var idx = 0;
+      var intervalMs = 3000;
+
+      function render(i) {
+        var item = newsticker_data[i];
+        var text = isEn ? item.headline_en : item.headline_in;
+        var url = isEn ? item.url_en : item.url_in;
+
+        $ticker.addClass("int-fade");
+        setTimeout(function () {
+          $headline.text(text);
+          $link.attr("href", url);
+          $ticker.removeClass("int-fade");
+        }, 200);
+      }
+
+      render(idx);
+      setInterval(function () {
+        idx = (idx + 1) % newsticker_data.length;
+        render(idx);
+      }, intervalMs);
+    }
+
+    /* ===== BANNER ===== */
+    function initBanner() {
+      var $wrapper = $("#custom-main-banner-wrapper");
+      var $root = $wrapper.find(".cmb-root");
+      var $slidesContainer = $root.find(".cmb-slides");
+      var $dotsContainer = $root.find(".cmb-dots");
+
+      var isEn = document.documentElement.lang === "en";
+      var now = new Date();
+
+      var activeBanners = banners.filter(function (item) {
+        var start = new Date(item.publish_date);
+        var end = new Date(item.end_date);
+        return now >= start && now <= end;
+      });
+
+      if (!activeBanners.length) {
+        $wrapper.hide();
+        return;
+      }
+
+      var slidesHtml = "";
+      var dotsHtml = "";
+
+      activeBanners.forEach(function (item, idx) {
+        var banner_desktop, banner_mobile, banner_url;
+
+        if (isEn) {
+          banner_desktop = item.banner_en;
+          banner_mobile = item.banner_en_m;
+          banner_url = item.url_en;
+        } else {
+          banner_desktop = item.banner_in;
+          banner_mobile = item.banner_in_m;
+          banner_url = item.url_in;
+        }
+
+        slidesHtml +=
+          '<div class="cmb-slide" data-index="' +
+          idx +
+          '">' +
+          '  <a href="' +
+          banner_url +
+          '">' +
+          "    <picture>" +
+          '      <source srcset="' +
+          banner_mobile +
+          '" type="image/webp" media="(max-width: 767.98px)" />' +
+          '      <img alt="' +
+          item.banner_name +
+          '" src="' +
+          banner_desktop +
+          '" class="cmb-image" />' +
+          "    </picture>" +
+          "  </a>" +
+          "</div>";
+
+        dotsHtml +=
+          '<button type="button" class="cmb-dot" data-index="' +
+          idx +
+          '" aria-label="Go to slide ' +
+          (idx + 1) +
+          '"></button>';
+      });
+
+      $slidesContainer.html(slidesHtml);
+      $dotsContainer.html(dotsHtml);
+
+      var $dots = $dotsContainer.find(".cmb-dot");
+
+      var currentIndex = 0;
+      var autoplayDelay = 4500;
+      var autoplayTimer = null;
+
+      function updateTransform() {
+        $slidesContainer.css(
+          "transform",
+          "translateX(" + -currentIndex * 100 + "%)"
+        );
+      }
+
+      function goToSlide(index) {
+        var total = $dots.length;
+        if (index < 0) index = total - 1;
+        if (index >= total) index = 0;
+        currentIndex = index;
+        updateTransform();
+        $dots.removeClass("is-active").eq(currentIndex).addClass("is-active");
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(nextSlide, autoplayDelay);
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      // Init
+      $dots.eq(0).addClass("is-active");
+      updateTransform();
+      startAutoplay();
+
+      // Controls
+      $wrapper.find(".cmp-next").on("click", function () {
+        stopAutoplay();
+        nextSlide();
+        startAutoplay();
+      });
+      $wrapper.find(".cmp-prev").on("click", function () {
+        stopAutoplay();
+        prevSlide();
+        startAutoplay();
+      });
+      $dots.on("click", function () {
+        stopAutoplay();
+        goToSlide(parseInt($(this).attr("data-index"), 10));
+        startAutoplay();
+      });
+
+      // Swipe
+      var startX = null,
+        startY = null;
+      var SWIPE_THRESHOLD = 50;
+
+      $root.on("touchstart", function (e) {
+        var t = e.originalEvent.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+      });
+
+      $root.on("touchend", function (e) {
+        if (startX === null || startY === null) return;
+        var t = e.originalEvent.changedTouches[0];
+        var dx = t.clientX - startX;
+        var dy = t.clientY - startY;
+
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
+          stopAutoplay();
+          if (dx < 0) nextSlide();
+          else prevSlide();
+          startAutoplay();
+        }
+
+        startX = null;
+        startY = null;
+      });
+    }
+
+    $(document).ready(function () {
+      moveComboToContentWrapperTop(); // keeps ticker+banner together as a unit
+      initNewsTicker();
+      initBanner();
+    });
+  })();
+</script>
